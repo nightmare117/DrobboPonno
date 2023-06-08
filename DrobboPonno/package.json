@@ -12,6 +12,7 @@
   "dependencies": {
     "normalize.css": "^8.0.1",
     "vue": "^3.3.2",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
