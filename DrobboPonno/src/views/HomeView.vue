@@ -1,17 +1,18 @@
 <script setup>
 import {ref} from 'vue'
-// const startButtonClicked = () => {
-//   // this.$router.push('/mainview')
-//    window.location.assign("/mainview")
-// }
+const startButtonClicked = () => {
+  // this.$router.push('/mainview')
+   window.location.assign("/register")
+}
 </script>
 
 <template>
   <div class="homeBack" ref="Background">
     <div class="home1">
       <h1>
-        DrobboPonno
+        <span class="homeViewTitleSpan"></span>Drobbo<span class="homeViewTitleSpan">Ponno</span>
       </h1>
+      <!-- <div class="homeviewLine"></div> -->
       <h7>Your go-to online store for a huge selection of high-caliber goods. Simple browsing, choice, and purchase. Create your protected bank details for transactions that go smoothly. As we handle the transaction procedure, we can guarantee quickness and transparency so you may have a flawless buying experience. Our website keeps you informed of the status of your purchase while our dependable supplier guarantees prompt delivery. With Drobboponno, your go-to e-commerce solution, you can confidently shop.</h7>
     </div>
     <div class="home2" >
@@ -27,6 +28,19 @@ import {ref} from 'vue'
 </template>
 
 <style>
+.homeviewLine{
+  height: 3px;
+  width: 100px;
+  background: rgb(170,69,11);
+  margin-bottom: 20px;
+  border-radius: 20px;
+  margin-left: 70px;
+}
+.homeViewTitleSpan{
+  /* font-size: 80px; */
+
+  color: rgb(170, 69, 11);
+}
 .home2button img{
   height: 15px;
   width: 15px;
@@ -73,6 +87,7 @@ import {ref} from 'vue'
   font-size: 60px;
   margin-top: 450px; 
   margin-left: 70px;
+  margin-bottom: 20px;
   color: rgb(255, 255, 255);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -118,7 +133,7 @@ import {ref} from 'vue'
   0%{
     background: url(../assets/image2.jpg);
     background-repeat: no-repeat;
-    background-size: 115% 115%;
+    background-size: 110% 110%;
   }
   /* 50%{
     background: url(../assets/image2.jpg);
@@ -132,7 +147,7 @@ import {ref} from 'vue'
   }80%{
     background: url(../assets/image1.jpg);
     background-repeat: no-repeat;
-    background-size: 115% 115%;
+    background-size: 110% 110%;
   }100%{
     background: url(../assets/image1.jpg);
     background-repeat: no-repeat;
