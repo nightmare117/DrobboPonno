@@ -20,20 +20,50 @@
        <div class="SignInBody">
            <div class="inputBox">
                 <label for="inp" class="inp">Email</label>
-                <input v-model="email" type="text" id="inp" placeholder="example@gmail.com">
+                <input v-model="userInfo.email" type="text" id="inp" placeholder="example@gmail.com">
            </div>
             <div class="inputBox">
                 <label for="inp" class="inp">Password</label>
-                <input v-model="password" type="password" id="inp" placeholder="password">
+                <input v-model="userInfo.password" type="password" id="inp" placeholder="password">
             </div>
        </div>
        <div class="signinfooter">
-            <button type="button" class="button-9" role="button" @click="buttonClicked">Sign In</button>
+            <button type="button" class="button-9" role="button" @click="signIn">Sign In</button>
        </div>
    </div>
    </div>
 </template>
+<script>
+import localStorageService from "../services/localStorageService";
+import toast from "../services/toast.service";
+import authService from "../services/auth.service";
+import router from "../router";
+export default {
+  name: "SignInView",
+  data() {
+    return {
+      userInfo:{
+        password: "",
+        email: "",
+      },
+    };
+  },
+  mounted() {
 
+  },
+  methods: {
+    signIn(){
+      authService.signin((data)=>{
+        localStorageService.setToken(data.accessToken)
+        localStorageService.setUserInfo(data.user)
+        router.push("/dashboard");
+      },(err)=>{
+        toast.error("Wrong Credentials")
+      },this.userInfo)
+    }
+  }
+};
+</script>
 <style>
 .signInWrapper{
     position: relative;
