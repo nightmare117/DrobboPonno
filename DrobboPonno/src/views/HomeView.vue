@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from 'vue'
+
 const startButtonClicked = () => {
   // this.$router.push('/mainview')
    window.location.assign("/register")

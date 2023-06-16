@@ -1,3 +1,12 @@
+<script setup>
+    import { RouterLink } from "vue-router";
+    import { ref } from 'vue'
+    import router from "../router";
+
+    const flag1 = ref(false);
+    const buttonClicked1 = ()=>{ router.push("/cart"); }
+</script>
+
 <template>
 
     <div class="signupWrapper">
@@ -39,7 +48,7 @@
             </div>
        </div>
        <div class="signupfooter">
-            <button type="button" class="button-9" role="button" >Create an account</button>
+            <button type="button" class="button-9" role="button" @click="buttonClicked1" >Create an account</button>
        </div>
    </div>
    </div>

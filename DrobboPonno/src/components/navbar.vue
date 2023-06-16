@@ -1,4 +1,14 @@
 <script setup>
+const emit = defineEmits(['response','responseNotification','responseCart'])
+const openBankInfo = ()=>{
+    emit('response',true)
+}
+const openNotification = ()=>{
+    emit('responseNotification',true)
+}
+const openCart = ()=>{
+    emit('responseCart',true)
+}
 </script>
 <template>
     <div class="navBack">
@@ -10,13 +20,13 @@
         </div>
         <div class="navButtons">
             <div class="navButtonPaddin">
-                <img class="bankButton" src="../assets/bank.png" title="bank information" alt="bankInfo"/>
+                <img  @click="openBankInfo" class="bankButton" src="../assets/bank.png" title="bank information" alt="bankInfo"/>
             </div>
             <div class="navButtonPaddin">
-                <img class="notificationButton" src="../assets/notification.png" title="notifications" alt="notification"/>
+                <img @click="openNotification" class="notificationButton" src="../assets/notification.png" title="notifications" alt="notification"/>
             </div>
             <div class="navButtonPaddin">
-                <img class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
+                <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
             
             
@@ -28,6 +38,7 @@
 <style>
 .navButtonPaddin{
     width: 40px;
+    height: 22px;
 }
 .notificationButton:hover{
     height: 21px;
