@@ -11,39 +11,70 @@
        <div class="SignupBody">
            <div class="inputBox">
                 <label for="inp" class="inp">Full Name</label>
-                <input type="text" id="inp" placeholder="John Doe">
+                <input type="text" id="inp" placeholder="John Doe" v-model="userInfo.userName">
            </div>
            <div class="inputBox">
                 <label for="inp" class="inp">Email</label>
-                <input type="text" id="inp" placeholder="example@gmail.com">
+                <input type="text" id="inp" placeholder="example@gmail.com" v-model="userInfo.email">
            </div>
             <div class="inputBox">
                 <label for="inp" class="inp">Password</label>
-                <input type="password" id="inp" placeholder="password" >
+                <input type="password" id="inp" placeholder="Password" v-model="userInfo.password">
             </div>
             <div class="inputBox">
                 <label for="inp" class="inp">Phone Number</label>
-                <input type="text" id="inp" placeholder="01**********" >
+                <input type="text" id="inp" placeholder="01**********" v-model="userInfo.phoneNumber">
            </div>
            <div class="container-radio">
               <div class="radio-group">
                 <label class="radio-label">
-                  <input class="radio-style" type="radio" name="role" value="client">
+                  <input class="radio-style" type="radio" name="role" value="1" v-model="userInfo.type">
                   <span>Client</span>
                 </label>
                 <label class="radio-label">
-                  <input class="radio-style" type="radio" name="role" value="supplier">
+                  <input class="radio-style" type="radio" name="role" value="2" v-model="userInfo.type">
                   <span>Supplier</span>
                 </label>
               </div>
             </div>
        </div>
        <div class="signupfooter">
-            <button type="button" class="button-9" role="button" >Create an account</button>
+            <button type="button" class="button-9" role="button" @click="signUp">Create an account</button>
        </div>
    </div>
    </div>
 </template>
+<script>
+import localStorageService from "../services/localStorageService";
+import toast from "../services/toast.service";
+import authService from "../services/auth.service";
+export default {
+  name: "RegisterView",
+  data() {
+    return {
+      userInfo:{
+        type: null,
+        userName: '',
+        password: "",
+        email:"",
+        phoneNumber:"",
+      },
+    };
+  },
+  mounted() {
+
+  },
+  methods: {
+    signUp(){
+      authService.signup((data)=>{
+        toast.success("data")
+      },(err)=>{
+        toast.error("Error Occured During Sign Up process")
+      },this.userInfo)
+    }
+  }
+};
+</script>
 <style>
 input[type='radio'] {
     accent-color: rgba(170, 69, 11,.829);
