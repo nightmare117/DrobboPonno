@@ -5,6 +5,9 @@
     import router from "../router"
     import bankModal from "../components/bankModal.vue"
     import notificationModal from "../components/notificationModal.vue"
+    import cartView from '../components/cart.vue'
+    import { useToast } from 'vue-toastification';
+    import toast from '../services/toast.service';
 
     const card1 = ref({
         title: 'Leather Wallet',
@@ -41,24 +44,75 @@
       cartModalFlag.value = true
     }
 
-
+    const itemCart1Flag = ref(false)
+    const itemCart2Flag = ref(false)
+    const itemCart3Flag = ref(false)
+    const addItem1 =()=>{
+        // console.log('item1')
+        itemCart1Flag.value=true
+        const toast = useToast()
+        toast.success('Leather wallet has been successfully added to the cart.')
+        // console.log(itemCartFlag.value.item1)
+    }
+    const addItem2 =()=>{
+        itemCart2Flag.value=true
+        const toast = useToast()
+        toast.success('Apple Ipad Pro has been successfully added to the cart.')
+    }
+    const addItem3 =()=>{
+        // console.log('item3')
+        itemCart3Flag.value=true
+        const toast = useToast()
+        toast.success('Table Lamp has been successfully added to the cart.')
+    }
+    const cartClose = ()=>{
+        cartModalFlag.value=false
+            itemCart1Flag.value=false
+            itemCart2Flag.value=false
+            itemCart3Flag.value=false
+    }
 </script>
 
 <template>
+    <cartView :item1="itemCart1Flag"
+              :item2="itemCart2Flag"
+              :item3="itemCart3Flag" :cartflag="cartModalFlag" @responsecartmodal="() =>{
+        cartModalFlag=false
+    }"
+        @cart1close="()=>{
+            itemCart1Flag=false
+        }"
+        @cart2close="()=>{
+            itemCart2Flag=false
+        }"
+        @cart3close="()=>{
+            itemCart3Flag=false
+        }"
+        @cartclose="()=>{
+            cartClose()
+        }"
+    />
   <notificationModal :notificationflag="notificationModalFlag" @responsenotificationmodal="()=>{
     notificationModalFlag =false
   }"/>
   <bankModal :debt-flag="bankModalFlag" @response-debt="()=>{bankModalFlag = false}"/>
-    <navbar @response="(msg)=>{bankButtonClicked(msg)}" 
-      @responseNotification="(msg)=>{notificationButtonClicked(msg)}" 
-      @responseCart="(msg)=>{cartButtonClicked(msg)}"/>
+    <navbar 
+            @response="(msg)=>{bankButtonClicked(msg)}" 
+            @responseNotification="(msg)=>{notificationButtonClicked(msg)}" 
+            @responseCart="(msg)=>{cartButtonClicked(msg)}"/>
 
     <div class="mainBody">
         <div class="customMargin"></div>
         <div class="mainCardContainer">
-            <shopCard :title="card1.title" :price="card1.price" :image="card1.imageLink" />
-            <shopCard :title="card2.title" :price="card2.price" :image="card2.imageLink" />
-            <shopCard :title="card3.title" :price="card3.price" :image="card3.imageLink" />
+            <shopCard :title="card1.title" :price="card1.price" :image="card1.imageLink" @response_add_cart="(msg)=>{
+                addItem1()
+            }"/>
+            <shopCard :title="card2.title" :price="card2.price" :image="card2.imageLink" @response_add_cart="(msg)=>{
+                addItem2()
+            }" />
+            <shopCard :title="card3.title" :price="card3.price" :image="card3.imageLink" @response_add_cart="(msg)=>{
+                addItem3()
+            }"/>
         </div>
     </div>
 </template>

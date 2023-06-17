@@ -1,5 +1,7 @@
 <script setup>
 const emit = defineEmits(['response','responseNotification','responseCart'])
+
+// setInterval(()=>console.log(props.item2),2000)
 const openBankInfo = ()=>{
     emit('response',true)
 }

@@ -1,4 +1,5 @@
 <script setup>
+import {ref} from 'vue'
     const props = defineProps({
         title: String,
         price: String,
@@ -6,6 +7,10 @@
 
 })
 //console.log(props.image)
+const emit = defineEmits(["response_add_cart"]);
+const addItem = ()=>{
+    emit('response_add_cart',true)
+}
 </script>
 
 <template>
@@ -18,7 +23,7 @@
         <div class="titleBox">
             <h4>{{ price }} BDT</h4>
         </div>
-        <div class="addCartButton">
+        <div @click="addItem" class="addCartButton">
             <p>Add to Cart</p>
         </div>
     </div>
