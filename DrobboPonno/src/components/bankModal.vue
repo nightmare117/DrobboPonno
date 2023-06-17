@@ -1,16 +1,13 @@
 <script setup>
 import { ref } from "vue";
 const props = defineProps({
-  debtFlag: Boolean
+  debtFlag: Boolean //for modal open-close purpose
 //   shopNumber:String
 });
 
-const debtorData = ref({
-  name: "",
-  number: "",
-  amount: "",
-  remarks: "",
-});
+const hasAccount = ref(true)
+const bankAccountBalance = ref(1000000)
+const bankAccountId = ref(435354433533)
 
 const emit = defineEmits(["responseDebt"]);
 
@@ -25,7 +22,27 @@ console.log(props.shopFlag);
 
 <template>
   <div v-if="props.debtFlag" class="modalBodyBank">
-    <div class="bankModalCenter">
+    <div v-if="hasAccount" class="bankModalCenter">
+      <div class="bankAccountInfoWrapper">
+        <button @click="addDebtFalse" class="closeButton">X</button>
+        <div class="bankInfoBody">
+          <div class="accountTitle">
+            <h1>Account Information</h1>
+          </div>
+          <div class="accSpan"></div>
+          <div class="bankId">
+            <p>Bank Id : {{ bankAccountId }}</p>
+          </div>
+          <div class="bankId">
+            <p>Remaining Balance: {{ bankAccountBalance }} BDT</p>
+          </div>
+          <div class="removeAccount">
+            <p>Remove Account</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-else class="bankModalCenter">
       <button @click="addDebtFalse" class="closeButton">X</button>
       <h2>ADD Bank Account</h2>
       <div class="debtModalSpan"></div>
@@ -46,6 +63,47 @@ console.log(props.shopFlag);
   </div>
 </template>
 <style>
+.bankId p{
+  font-weight: 500;
+}
+.accSpan{
+  height: 3px;
+  width: 60px;
+  background: black;
+  margin-top: 14px;
+  margin-bottom: 40px;
+}
+.removeAccount:hover{
+  background: red;
+}
+.removeAccount p{
+  color: white;
+}
+.removeAccount{
+  cursor: pointer;
+  border-radius: 5px;
+  position:absolute;
+  bottom: 0px;
+  right: 40px;
+  background: rgba(212, 10, 10, 0.918);
+  padding: 7px;
+}
+.bankInfoBody{
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  position: relative;
+}
+.bankAccountInfoWrapper{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* padding: 20px; */
+  /* background: black; */
+}
 .pincode {
         text-security: disc;
         -webkit-text-security: disc;
