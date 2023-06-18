@@ -1,7 +1,7 @@
 <script setup>
     import navbar from '../components/navbar.vue';
     import shopCard from "../components/itemCard.vue"
-    import { ref } from 'vue'
+    import {onMounted, ref} from 'vue'
     import router from "../router"
     import bankModal from "../components/bankModal.vue"
     import notificationModal from "../components/notificationModal.vue"
@@ -9,24 +9,25 @@
     import { useToast } from 'vue-toastification';
     import toast from '../services/toast.service';
     import ShopCardSupplier from '../components/ItemCardSupplier.vue'
+    import authService from "../services/auth.service";
 
     const card1 = ref({
         title: 'Leather Wallet',
         price: '1500',
         imageLink: '../src/assets/wallet1.jpg',
-        remaining: 100                           //database
+        remaining: 10                           //database
     })
     const card2 = ref({
         title: 'APPLE IPAD PRO',
         price: '95000',
         imageLink: '../src/assets/ipad.jpg',
-        remaining: 31                              //database
+        remaining: 10                              //database
     })
     const card3 = ref({
         title: 'Table Lamp',
         price: '2000',
         imageLink: '../src/assets/lamp.jpg',
-        remaining: 36                              //database
+        remaining: 10                              //database
     })
 
     const bankModalFlag = ref(false)
@@ -51,7 +52,7 @@
     const itemCart1Flag = ref(false)
     const itemCart2Flag = ref(false)
     const itemCart3Flag = ref(false)
-    
+
 
     const add1Supply =(number)=>{
         card1.value.remaining=number        //database push
@@ -72,16 +73,52 @@
 
         // save changes button functionality
 
-        
+      saveStockChanges()
         setTimeout(()=>{
             editSupplierFlag.value = false
             const toast = useToast()
             toast.success('Your changes have been applied.')
         },1500)
 
-         
+
 
     }
+    const getItemCounts= ()=>{
+      authService.getItemsCount((data)=>{
+        card1.value.remaining = data.filter(v=>v.id==1)[0].stock_count;
+        card2.value.remaining = data.filter(v=>v.id==2)[0].stock_count;
+        card3.value.remaining = data.filter(v=>v.id==3)[0].stock_count;
+      },()=>{
+
+      })
+    }
+    const saveStockChanges= ()=>{
+      var itemList = [
+        {
+          id:1,
+          count:card1.value.remaining
+        },
+        {
+          id:2,
+          count:card2.value.remaining
+        },
+        {
+          id:3,
+          count:card3.value.remaining
+        },
+      ]
+      var data = {
+        items:itemList
+      }
+      authService.saveStock((data)=>{
+        toast.success("Successfully Updated The Stock(s)")
+      },()=>{
+
+      }, data)
+    }
+    onMounted(() => {
+      getItemCounts();
+    });
 </script>
 
 <template>
@@ -107,30 +144,31 @@
     notificationModalFlag =false
   }"/>
   <bankModal :debt-flag="bankModalFlag" @response-debt="()=>{bankModalFlag = false}"/>
-    <navbar 
-            @response="(msg)=>{bankButtonClicked(msg)}" 
-            @responseNotification="(msg)=>{notificationButtonClicked(msg)}" 
+    <navbar
+            :is-supplier="true"
+            @response="(msg)=>{bankButtonClicked(msg)}"
+            @responseNotification="(msg)=>{notificationButtonClicked(msg)}"
             @responseCart="(msg)=>{cartButtonClicked(msg)}"/>
 
     <div class="mainBody">
         <div class="customMargin"></div>
         <div class="mainCardContainer">
-            <ShopCardSupplier :title="card1.title" 
-                                :price="card1.price" 
-                                :image="card1.imageLink" 
-                                :remaining="card1.remaining" 
+            <ShopCardSupplier :title="card1.title"
+                                :price="card1.price"
+                                :image="card1.imageLink"
+                                :remaining="card1.remaining"
                                 @remainingAdd="(number)=>{add1Supply(number)}"
                                 @editResponse="()=>{editResponseSupplier()}"/>
-            <ShopCardSupplier :title="card2.title" 
-                              :price="card2.price" 
-                              :image="card2.imageLink" 
-                              :remaining="card2.remaining" 
+            <ShopCardSupplier :title="card2.title"
+                              :price="card2.price"
+                              :image="card2.imageLink"
+                              :remaining="card2.remaining"
                               @remainingAdd="(number)=>{add2Supply(number)}"
                               @editResponse="()=>{editResponseSupplier()}"/>
-            <ShopCardSupplier :title="card3.title" 
-                             :price="card3.price" 
-                             :image="card3.imageLink" 
-                             :remaining="card3.remaining" 
+            <ShopCardSupplier :title="card3.title"
+                             :price="card3.price"
+                             :image="card3.imageLink"
+                             :remaining="card3.remaining"
                              @remainingAdd="(number)=>{add3Supply(number)}"
                              @editResponse="()=>{editResponseSupplier()}"/>
         </div>
@@ -150,7 +188,7 @@
 }
 .supplierSaveChanges{
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
     z-index: 10;
     border-radius: 10px;

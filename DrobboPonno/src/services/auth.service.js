@@ -63,6 +63,22 @@ const authService = {
             })
             .catch((errorResponse) => error(errorResponse));
     },
+    getItemsCount(success, error, params) {
+        axios
+            .get('/get-items-count')
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
+    saveStock(success, error, data) {
+        axios
+            .post('/save-stock',data)
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
 
 };
 export default authService;

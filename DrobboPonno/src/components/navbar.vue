@@ -32,13 +32,13 @@ const openCart = ()=>{
             <div class="navButtonPaddin">
                 <img @click="openNotification" class="notificationButton" src="../assets/notification.png" title="notifications" alt="notification"/>
             </div>
-            <div class="navButtonPaddin">
+            <div class="navButtonPaddin" v-if="!isSupplier">
                 <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
             <div class="dropdown">
                 <button class="dropdown-button">{{userInfo.userName}}<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
                 <div class="dropdown-content">
-                <a href="#">Logout</a>
+                <a href="#" @click="logUserOut">Logout</a>
                 <!-- <a href="#">Logout option 2</a> -->
                 <!-- <a href="#">Logout option 3</a> -->
             </div>
@@ -50,8 +50,18 @@ const openCart = ()=>{
 </template>
 <script>
 import localStorageService from "../services/localStorageService";
+import router from "../router";
 export default {
   name: "navbar",
+  props:{
+    isSupplier:{
+      type:Boolean,
+      default(){
+        return false;
+      }
+    }
+}
+  ,
   data() {
     return {
       userInfo:{
@@ -66,6 +76,9 @@ export default {
   methods: {
     getUserInfo(){
       this.userInfo.userName = localStorageService.getUserInfo() ? localStorageService.getUserInfo().user_name:"John Doe";
+    },
+    logUserOut(){
+      router.push("/register");
     }
   }
 };

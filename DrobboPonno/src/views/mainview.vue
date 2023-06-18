@@ -1,7 +1,7 @@
 <script setup>
     import navbar from '../components/navbar.vue';
     import shopCard from "../components/itemCard.vue"
-    import { ref } from 'vue'
+    import {onMounted, ref} from 'vue'
     import router from "../router"
     import bankModal from "../components/bankModal.vue"
     import notificationModal from "../components/notificationModal.vue"
@@ -9,7 +9,7 @@
     import { useToast } from 'vue-toastification';
     import toast from '../services/toast.service';
 
-    
+
     const card1 = ref({
         title: 'Leather Wallet',
         price: '1500',
@@ -75,6 +75,19 @@
             itemCart2Flag.value=false
             itemCart3Flag.value=false
     }
+    const getItemCounts= ()=>{
+      authService.getItemsCount((data)=>{
+        card1.value.remaining = data.filter(v=>v.id==1)[0].stock_count;
+        card2.value.remaining = data.filter(v=>v.id==2)[0].stock_count;
+        card3.value.remaining = data.filter(v=>v.id==3)[0].stock_count;
+      },()=>{
+
+      })
+    }
+    onMounted(() => {
+      getItemCounts();
+    });
+
 </script>
 
 <template>
@@ -123,6 +136,7 @@
 <script>
 import localStorageService from "../services/localStorageService";
 import authService from "../services/auth.service";
+import router from "../router";
 export default {
   name: "navbar",
   data() {
@@ -140,9 +154,7 @@ export default {
   methods: {
     getUserInfo(){
       this.userInfo.userId = localStorageService.getUserInfo().id;
-      authService.getBankAccount((data)=>{
-      },(err)=>{
-      },{id:this.userInfo.userId})
+      if(localStorageService.getUserInfo().type == 2)router.push("/supplier");
     }
   }
 };
