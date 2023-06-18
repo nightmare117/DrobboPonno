@@ -3,9 +3,12 @@ import {ref} from 'vue'
     const props = defineProps({
         title: String,
         price: String,
-        image: String
+        image: String,
+        remaining: Number
 
 })
+
+// Shop Card Component
 //console.log(props.image)
 const emit = defineEmits(["response_add_cart"]);
 const addItem = ()=>{
@@ -19,8 +22,9 @@ const addItem = ()=>{
         <img class="itemCardImage" :src="image" alt="itemIpadPro"/>
         <div class="titleBox">
             <h4 style="color: rgba(170, 69, 11,.9);">{{ title }}</h4>
+            <p>( {{ remaining }} items remaining )</p>
         </div>
-        <div class="titleBox">
+        <div class="titleBoxNext">
             <h4>{{ price }} BDT</h4>
         </div>
         <div @click="addItem" class="addCartButton">
@@ -55,7 +59,27 @@ const addItem = ()=>{
 .titleBox h4{
     font-weight: 500;
 }
+.titleBoxNext h4{
+    font-weight: 500;
+}
+.titleBox p{
+    font-size: 10px;
+}
 .titleBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    height: 60px;
+    width: 100%;
+    margin-top: 5px;
+    /* margin-left: 3%; */
+    /* margin-right: 3%; */
+    background: white;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.titleBoxNext{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +105,7 @@ const addItem = ()=>{
 .shopCardContainer{
     display: flex;
     flex-direction: column;
-    height: 350px;
+    height: auto;
     width: 20%;
     min-width: 300px;
     /* background: rgba(0, 0, 0, 0.075); */
