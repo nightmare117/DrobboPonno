@@ -66,6 +66,7 @@ const button2Clicked = () => {
 <style>
 @import "@/assets/base.css";
 .homedecoration {
+  margin-top: 5px;
   width: 20px;
   height: 10px;
   background: rgba(0, 0, 0, 0.13);
@@ -104,6 +105,9 @@ a,
 
   .welcomeViewButtonGroup{
       margin-top: 15px ;
+      margin-right: 10px !important;
+      /* margin-left: 10px; */
+      margin-left: -6px;
   }
 
   .welcomeViewButtonGroup button{
