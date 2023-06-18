@@ -30,9 +30,16 @@ const openCart = ()=>{
             <div class="navButtonPaddin">
                 <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
+            <div class="dropdown">
+                <button class="dropdown-button">{{userInfo.userName}}<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
+                <div class="dropdown-content">
+                <a href="#">Logout</a>
+                <!-- <a href="#">Logout option 2</a> -->
+                <!-- <a href="#">Logout option 3</a> -->
+            </div>
+  </div>
 
-
-            <p>{{userInfo.userName}}</p>
+            <!-- <p>John Doe</p> -->
         </div>
     </div>
 </template>
@@ -59,6 +66,12 @@ export default {
 };
 </script>
 <style>
+.dropdownSpanImg img{
+    height: 15px;
+    width: 15px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
 .navButtonPaddin{
     width: 40px;
     height: 22px;

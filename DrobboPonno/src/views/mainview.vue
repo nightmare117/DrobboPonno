@@ -12,17 +12,20 @@
     const card1 = ref({
         title: 'Leather Wallet',
         price: '1500',
-        imageLink: '../src/assets/wallet1.jpg'
+        imageLink: '../src/assets/wallet1.jpg',
+        remaining: 100
     })
     const card2 = ref({
         title: 'APPLE IPAD PRO',
         price: '95000',
-        imageLink: '../src/assets/ipad.jpg'
+        imageLink: '../src/assets/ipad.jpg',
+        remaining: 31
     })
     const card3 = ref({
         title: 'Table Lamp',
         price: '2000',
-        imageLink: '../src/assets/lamp.jpg'
+        imageLink: '../src/assets/lamp.jpg',
+        remaining: 36
     })
 
     const bankModalFlag = ref(false)
@@ -104,13 +107,13 @@
     <div class="mainBody">
         <div class="customMargin"></div>
         <div class="mainCardContainer">
-            <shopCard :title="card1.title" :price="card1.price" :image="card1.imageLink" @response_add_cart="(msg)=>{
+            <shopCard :title="card1.title" :price="card1.price" :image="card1.imageLink" :remaining="card1.remaining" @response_add_cart="(msg)=>{
                 addItem1()
             }"/>
-            <shopCard :title="card2.title" :price="card2.price" :image="card2.imageLink" @response_add_cart="(msg)=>{
+            <shopCard :title="card2.title" :price="card2.price" :image="card2.imageLink" :remaining="card2.remaining" @response_add_cart="(msg)=>{
                 addItem2()
             }" />
-            <shopCard :title="card3.title" :price="card3.price" :image="card3.imageLink" @response_add_cart="(msg)=>{
+            <shopCard :title="card3.title" :price="card3.price" :image="card3.imageLink" :remaining="card3.remaining" @response_add_cart="(msg)=>{
                 addItem3()
             }"/>
         </div>
