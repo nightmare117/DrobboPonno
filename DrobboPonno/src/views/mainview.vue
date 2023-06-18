@@ -9,6 +9,7 @@
     import { useToast } from 'vue-toastification';
     import toast from '../services/toast.service';
 
+    
     const card1 = ref({
         title: 'Leather Wallet',
         price: '1500',
