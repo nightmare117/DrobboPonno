@@ -5,7 +5,7 @@
   <div class="greetings">
     <h1 class="green" ><spam>Thank you for choosing </spam>Drobbo<spam class="greenSpam">Ponno</spam></h1>
     <h3 style="font-size:18px" >
-      A web application that can help any business organization by allowing them to record sell, purchase and expense transactions.
+      Your ultimate e-commerce destination, revolutionizing online shopping with seamless transactions, a wide product range, and reliable supplier collaborations, all facilitated by a secure banking system.
       <!-- <a target="_blank" href="https://vitejs.dev/">Vite</a> +
       <a target="_blank" href="https://vuejs.org/">Vue 3</a>. What's next? -->
     </h3>
