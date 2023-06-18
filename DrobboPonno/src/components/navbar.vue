@@ -30,13 +30,34 @@ const openCart = ()=>{
             <div class="navButtonPaddin">
                 <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
-            
-            
-            <p>John Doe</p>
+
+
+            <p>{{userInfo.userName}}</p>
         </div>
     </div>
 </template>
-
+<script>
+import localStorageService from "../services/localStorageService";
+export default {
+  name: "navbar",
+  data() {
+    return {
+      userInfo:{
+        type: null,
+        userName: '',
+      },
+    };
+  },
+  mounted() {
+    this.getUserInfo();
+  },
+  methods: {
+    getUserInfo(){
+      this.userInfo.userName = localStorageService.getUserInfo().user_name;
+    }
+  }
+};
+</script>
 <style>
 .navButtonPaddin{
     width: 40px;

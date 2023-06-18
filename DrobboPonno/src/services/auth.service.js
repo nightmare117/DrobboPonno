@@ -39,5 +39,30 @@ const authService = {
             })
             .catch((errorResponse) => error(errorResponse));
     },
+    getBankAccount(success, error, params) {
+        axios
+            .get('/get-bank-account',{params:params})
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
+    createBankAccount(success, error, data) {
+        axios
+            .post('/create-bank-account',data)
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
+    purchaseProduct(success, error, data) {
+        axios
+            .post('/purchase-product',data)
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
+
 };
 export default authService;

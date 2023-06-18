@@ -76,7 +76,7 @@ export default {
   methods: {
     signUp(){
       authService.signup((data)=>{
-        toast.success("data")
+        toast.success(data)
       },(err)=>{
         toast.error("Error Occured During Sign Up process")
       },this.userInfo)
