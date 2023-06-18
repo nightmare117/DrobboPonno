@@ -1,6 +1,11 @@
 <script setup>
+import router from "../router"
+
 const emit = defineEmits(['response','responseNotification','responseCart'])
 
+const buttonClickedDrobboPonno = ()=>{
+    console.log("yo")
+     router.push("/supplier"); }
 // setInterval(()=>console.log(props.item2),2000)
 const openBankInfo = ()=>{
     emit('response',true)
@@ -14,8 +19,8 @@ const openCart = ()=>{
 </script>
 <template>
     <div class="navBack">
-        <div class="navTitle">
-            <p>Drobbo<span class="navTitleSpan">Ponno</span></p>
+        <div @click="buttonClickedDrobboPonno" class="navTitle">
+            <p >Drobbo<span class="navTitleSpan">Ponno</span></p>
         </div>
         <div class="navCenter">
             <!-- some free space for future works -->
@@ -128,6 +133,7 @@ export default {
 }
 .navTitle{
     width: 20%;
+    cursor: pointer;
 }
 .navBack{
     position: fixed;

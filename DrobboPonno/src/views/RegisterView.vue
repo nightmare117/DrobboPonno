@@ -1,7 +1,7 @@
 <script setup>
     import { RouterLink } from "vue-router";
     import { ref } from 'vue'
-    import router from "../router";
+    import router from "../router"
 
     const flag1 = ref(false);
     const buttonClicked1 = ()=>{ router.push("/cart"); }
