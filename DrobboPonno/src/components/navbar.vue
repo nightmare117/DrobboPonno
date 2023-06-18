@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getUserInfo(){
-      this.userInfo.userName = localStorageService.getUserInfo().user_name;
+      this.userInfo.userName = localStorageService.getUserInfo() ? localStorageService.getUserInfo().user_name:"John Doe";
     }
   }
 };
