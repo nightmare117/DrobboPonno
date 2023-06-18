@@ -67,6 +67,7 @@ import { ref } from "vue";
 import localStorageService from "../services/localStorageService";
 import authService from "../services/auth.service";
 import toast from "../services/toast.service";
+import apiService from "../services/api.service";
 export default {
   name: "navbar",
   props:[
@@ -86,11 +87,13 @@ export default {
     };
   },
   mounted() {
+    apiService.setToken(localStorageService.getToken());
     this.getUserInfo();
   },
   methods: {
     getUserInfo(){
       this.userInfo.userId = localStorageService.getUserInfo().id;
+      apiService.setToken(localStorageService.getToken());
       var vm = this;
       authService.getBankAccount((data)=>{
         if(data[0]){

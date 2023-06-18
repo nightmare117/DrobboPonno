@@ -78,6 +78,8 @@ export default {
       this.userInfo.userName = localStorageService.getUserInfo() ? localStorageService.getUserInfo().user_name:"John Doe";
     },
     logUserOut(){
+      localStorageService.setToken("")
+      localStorageService.setUserInfo({})
       router.push("/register");
     }
   }

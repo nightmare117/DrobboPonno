@@ -137,6 +137,7 @@
 import localStorageService from "../services/localStorageService";
 import authService from "../services/auth.service";
 import router from "../router";
+import apiService from "../services/api.service";
 export default {
   name: "navbar",
   data() {
@@ -149,10 +150,12 @@ export default {
     };
   },
   mounted() {
+    apiService.setToken(localStorageService.getToken());
     this.getUserInfo();
   },
   methods: {
     getUserInfo(){
+      apiService.setToken(localStorageService.getToken());
       this.userInfo.userId = localStorageService.getUserInfo().id;
       if(localStorageService.getUserInfo().type == 2)router.push("/supplier");
     }
