@@ -62,6 +62,26 @@
     const add3Supply =(number)=>{
         card3.value.remaining=number        //database push
     }
+
+    const editSupplierFlag = ref(false)
+    const editResponseSupplier = ()=>{
+        editSupplierFlag.value=true
+    }
+
+    const saveChangesSupplier = ()=>{
+
+        // save changes button functionality
+
+        
+        setTimeout(()=>{
+            editSupplierFlag.value = false
+            const toast = useToast()
+            toast.success('Your changes have been applied.')
+        },1500)
+
+         
+
+    }
 </script>
 
 <template>
@@ -99,23 +119,49 @@
                                 :price="card1.price" 
                                 :image="card1.imageLink" 
                                 :remaining="card1.remaining" 
-                                @remainingAdd="(number)=>{add1Supply(number)}"/>
+                                @remainingAdd="(number)=>{add1Supply(number)}"
+                                @editResponse="()=>{editResponseSupplier()}"/>
             <ShopCardSupplier :title="card2.title" 
                               :price="card2.price" 
                               :image="card2.imageLink" 
                               :remaining="card2.remaining" 
-                              @remainingAdd="(number)=>{add2Supply(number)}"/>
+                              @remainingAdd="(number)=>{add2Supply(number)}"
+                              @editResponse="()=>{editResponseSupplier()}"/>
             <ShopCardSupplier :title="card3.title" 
                              :price="card3.price" 
                              :image="card3.imageLink" 
                              :remaining="card3.remaining" 
-                             @remainingAdd="(number)=>{add3Supply(number)}"/>
+                             @remainingAdd="(number)=>{add3Supply(number)}"
+                             @editResponse="()=>{editResponseSupplier()}"/>
+        </div>
+        <div @click="saveChangesSupplier" v-if="editSupplierFlag" class="supplierSaveChanges">
+            <p>Save Changes</p>
         </div>
     </div>
 </template>
 
 
 <style>
+.supplierSaveChanges p{
+    color: white;
+}
+.supplierSaveChanges:hover{
+    background: black;
+}
+.supplierSaveChanges{
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    z-index: 10;
+    border-radius: 10px;
+    position: fixed;
+    /* height: 100px; */
+    padding: 10px;
+    /* width: 100px; */
+    background: rgba(0, 0, 0, 0.864);
+    bottom: 50px;
+    right: 60px;
+}
 .mainCardContainer{
     width: 80%;
     display: flex;

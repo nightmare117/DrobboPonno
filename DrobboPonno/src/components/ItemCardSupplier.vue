@@ -9,13 +9,14 @@ import {ref} from 'vue'
 
 // Shop Card Component
 //console.log(props.image)
-const emit = defineEmits(["remainingAdd"]);
+const emit = defineEmits(["remainingAdd","editResponse"]);
 
 const decSupply = ()=>{
     let x = props.remaining
     x = x-1
     if(x>=0){
         emit('remainingAdd',x)
+        emit('editResponse')
     }
 }
 
@@ -23,6 +24,7 @@ const incSupply = ()=>{
     let y = props.remaining
     y = y+1
     emit('remainingAdd',y)
+    emit('editResponse')
 }
 </script>
 
