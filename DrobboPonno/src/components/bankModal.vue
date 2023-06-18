@@ -1,34 +1,28 @@
 <script setup>
 import { ref } from "vue";
-const props = defineProps({
-  debtFlag: Boolean //for modal open-close purpose
-//   shopNumber:String
-});
+// const props = defineProps({
+//   debtFlag: Boolean //for modal open-close purpose
+// //   shopNumber:String
+// });
 
-const hasAccount = ref(false)
-const bankAccountBalance = ref(1000000)
-const bankAccountId = ref(435354433533)
 
-const emit = defineEmits(["responseDebt"]);
+// const emit = defineEmits(["responseDebt"]);
 
-const addInfo = () => {
+// const addDebtFalse=()=>{
+//   emit("responseDebt", false);
+// }
 
-};
-const addDebtFalse=()=>{
-  emit("responseDebt", false);
-}
-
-const accountRemove = ()=>{
-  hasAccount.value=false
-  console.log(hasAccount.value)
-  
-  // here bank account should be removed from db 
-}
-console.log(props.shopFlag);
+// const accountRemove = ()=>{
+//   hasAccount.value=false
+//   console.log(hasAccount.value)
+//
+//   // here bank account should be removed from db
+// }
+// console.log(props.shopFlag);
 </script>
 
 <template>
-  <div v-if="props.debtFlag" class="modalBodyBank">
+  <div v-if="debtFlag" class="modalBodyBank">
     <div v-if="hasAccount" class="bankModalCenter">
       <div class="bankAccountInfoWrapper">
         <button @click="addDebtFalse" class="closeButton">X</button>
@@ -56,7 +50,7 @@ console.log(props.shopFlag);
       <!-- <div class="debtModalSpan1"></div> -->
       <div class="inputBox1Debt">
         <label for="inp" class="inp">Account ID</label>
-        <input  type="number" id="inp" placeholder="" />
+        <input  type="number" id="inp" placeholder="" v-model="bankAccountId"/>
       </div>
       <div class="inputBox1Debt">
         <label for="inp" class="inp">PIN</label>
@@ -69,6 +63,66 @@ console.log(props.shopFlag);
     <!-- <button @click="wowClicked"></button> -->
   </div>
 </template>
+<script>
+import localStorageService from "../services/localStorageService";
+import authService from "../services/auth.service";
+import toast from "../services/toast.service";
+export default {
+  name: "navbar",
+  props:[
+    "debtFlag"
+  ],
+  data() {
+    return {
+      userInfo:{
+        type: null,
+        userName: '',
+        userId: null,
+      },
+      hasAccount:false,
+      bankAccountBalance:0.0,
+      bankAccountId:null,
+      bankAccountPin:null,
+    };
+  },
+  mounted() {
+    this.getUserInfo();
+  },
+  methods: {
+    getUserInfo(){
+      this.userInfo.userId = localStorageService.getUserInfo().id;
+      var vm = this;
+      authService.getBankAccount((data)=>{
+        if(data[0]){
+          vm.hasAccount = true;
+          vm.bankAccountBalance = data[0].amount;
+          vm.bankAccountId = data[0].ac_no;
+        }else{
+          this.hasAccount = false;
+        }
+      },(err)=>{
+        toast.error(err)
+      },{id:this.userInfo.userId})
+    },
+    addInfo(){
+      var data = {
+        accountId:this.bankAccountId,
+      }
+      authService.createBankAccount((data)=>{
+        console.log(data)
+        this.getUserInfo()
+        toast.success("Bank account successfully added to your ID")
+        this.addDebtFalse();
+      },(err)=>{
+        toast.error("Error Occured" + err)
+      }, data)
+    },
+    addDebtFalse(){
+      this.$emit("responseDebt", false);
+    }
+  }
+};
+</script>
 <style>
 .bankId p{
   font-weight: 500;

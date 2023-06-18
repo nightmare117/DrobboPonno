@@ -1,12 +1,14 @@
-<script setup>
+  <script setup>
 import { ref,watch} from "vue";
 import cartItem from "./cartItem.vue";
 import { useToast } from 'vue-toastification';
+import authService from "../services/auth.service";
+import toast from "../services/toast.service";
 const props = defineProps({
   cartflag: Boolean,
   item1: Boolean,
   item2: Boolean,
-  item3: Boolean
+  item3: Boolean,
 //   shopNumber:String
 });
 const countSubTotal = ()=>{
@@ -43,6 +45,22 @@ if(props.item3==true){
 }
 
 const subTotal = ref(0)
+
+const purchaseProduct = ()=>{
+  var itemlist = [];
+  if(item1Count.value !=0 )itemlist.append({id:1,count:item1Count.value});
+  if(item2Count.value !=0 )itemlist.append({id:2,count:item2Count.value});
+  if(item3Count.value !=0 )itemlist.append({id:3,count:item3Count.value});
+  var data = {
+    itemList:itemlist,
+    total: subTotal.value,
+  }
+  authService.purchaseProduct(()=>{
+    toast.success("Items Purchased Successfully")
+  },(err)=>{
+    console.log(err)
+  },data)
+}
 subTotal.value = (item1Count.value*1500)+(item2Count.value*95000)+(item3Count.value*2000)
 
 
@@ -99,12 +117,24 @@ const card1 = ref({
     }
 
     const paymentProcedure = ()=>{
-      const toast = useToast()
-        toast.success('Payment Successful!')
-        setTimeout(()=>{
-          emit('cartclose',true)
-        },2000)
-        
+      var itemlist = [];
+      console.log("111")
+      if(item1Count.value !=0 )itemlist.push({id:1,count:item1Count.value});
+      if(item2Count.value !=0 )itemlist.push({id:2,count:item2Count.value});
+      if(item3Count.value !=0 )itemlist.push({id:3,count:item3Count.value});
+      var data = {
+        itemList:itemlist,
+        total: subTotal.value,
+      }
+      authService.purchaseProduct(()=>{
+        toast.success("Items Purchased Successfully")
+      },(err)=>{
+        console.log(err)
+      },data)
+      setTimeout(()=>{
+        emit('cartclose',true)
+      },2000)
+
     }
 </script>
 
@@ -138,7 +168,7 @@ const card1 = ref({
         <p>SubTotal : {{ subTotal }} BDT</p>
       </div>
       <!-- <div class="debtModalSpan1"></div> -->
-      
+
     <!-- <button @click="wowClicked"></button> -->
     <div v-if="props.item1||props.item2||props.item3" @click="paymentProcedure" class="paymentButton">
       <p>Proceed to Payment</p>

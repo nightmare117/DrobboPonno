@@ -36,19 +36,40 @@ const openCart = ()=>{
                 <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
             <div class="dropdown">
-                <button class="dropdown-button">John Doe<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
+                <button class="dropdown-button">{{userInfo.userName}}<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
                 <div class="dropdown-content">
                 <a href="#">Logout</a>
                 <!-- <a href="#">Logout option 2</a> -->
                 <!-- <a href="#">Logout option 3</a> -->
             </div>
   </div>
-            
+
             <!-- <p>John Doe</p> -->
         </div>
     </div>
 </template>
-
+<script>
+import localStorageService from "../services/localStorageService";
+export default {
+  name: "navbar",
+  data() {
+    return {
+      userInfo:{
+        type: null,
+        userName: '',
+      },
+    };
+  },
+  mounted() {
+    this.getUserInfo();
+  },
+  methods: {
+    getUserInfo(){
+      this.userInfo.userName = localStorageService.getUserInfo().user_name;
+    }
+  }
+};
+</script>
 <style>
 .dropdownSpanImg img{
     height: 15px;
@@ -123,49 +144,4 @@ const openCart = ()=>{
     align-items: center;
     z-index: 1;
 }
-
-.dropdown {
-    margin-right: 40px;
-    margin-left: 80px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    /* Additional button styling */
-    .dropdown-button {
-      background-color: transparent;
-      color: white;
-      /* padding: 12px; */
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .dropdown-button:hover {
-      /* background-color: #45a049; */
-    }
-
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #f1f1f1;
-    }
 </style>

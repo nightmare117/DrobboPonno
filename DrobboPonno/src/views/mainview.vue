@@ -100,9 +100,9 @@
     notificationModalFlag =false
   }"/>
   <bankModal :debt-flag="bankModalFlag" @response-debt="()=>{bankModalFlag = false}"/>
-    <navbar 
-            @response="(msg)=>{bankButtonClicked(msg)}" 
-            @responseNotification="(msg)=>{notificationButtonClicked(msg)}" 
+    <navbar
+            @response="(msg)=>{bankButtonClicked(msg)}"
+            @responseNotification="(msg)=>{notificationButtonClicked(msg)}"
             @responseCart="(msg)=>{cartButtonClicked(msg)}"/>
 
     <div class="mainBody">
@@ -120,7 +120,33 @@
         </div>
     </div>
 </template>
-
+<script>
+import localStorageService from "../services/localStorageService";
+import authService from "../services/auth.service";
+export default {
+  name: "navbar",
+  data() {
+    return {
+      userInfo:{
+        type: null,
+        userName: '',
+        userId: null,
+      },
+    };
+  },
+  mounted() {
+    this.getUserInfo();
+  },
+  methods: {
+    getUserInfo(){
+      this.userInfo.userId = localStorageService.getUserInfo().id;
+      authService.getBankAccount((data)=>{
+      },(err)=>{
+      },{id:this.userInfo.userId})
+    }
+  }
+};
+</script>
 
 <style>
 .mainCardContainer{
