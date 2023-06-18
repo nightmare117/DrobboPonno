@@ -36,7 +36,7 @@ const openCart = ()=>{
                 <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
             <div class="dropdown">
-                <button class="dropdown-button">{{userInfo.userName}}John Doe<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
+                <button class="dropdown-button">{{userInfo.userName}}<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
                 <div class="dropdown-content">
                 <a href="#">Logout</a>
                 <!-- <a href="#">Logout option 2</a> -->

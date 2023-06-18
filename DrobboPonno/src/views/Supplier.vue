@@ -51,30 +51,7 @@
     const itemCart1Flag = ref(false)
     const itemCart2Flag = ref(false)
     const itemCart3Flag = ref(false)
-    const addItem1 =()=>{
-        // console.log('item1')
-        itemCart1Flag.value=true
-        const toast = useToast()
-        toast.success('Leather wallet has been successfully added to the cart.')
-        // console.log(itemCartFlag.value.item1)
-    }
-    const addItem2 =()=>{
-        itemCart2Flag.value=true
-        const toast = useToast()
-        toast.success('Apple Ipad Pro has been successfully added to the cart.')
-    }
-    const addItem3 =()=>{
-        // console.log('item3')
-        itemCart3Flag.value=true
-        const toast = useToast()
-        toast.success('Table Lamp has been successfully added to the cart.')
-    }
-    const cartClose = ()=>{
-        cartModalFlag.value=false
-            itemCart1Flag.value=false
-            itemCart2Flag.value=false
-            itemCart3Flag.value=false
-    }
+    
 
     const add1Supply =(number)=>{
         card1.value.remaining=number        //database push
