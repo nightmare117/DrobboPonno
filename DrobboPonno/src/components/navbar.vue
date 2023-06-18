@@ -36,7 +36,7 @@ const openCart = ()=>{
                 <img @click="openCart" class="cartButton" src="../assets/cart.png" title="cart" alt="cart"/>
             </div>
             <div class="dropdown">
-                <button class="dropdown-button">{{userInfo.userName}}<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
+                <button class="dropdown-button">{{userInfo.userName}}John Doe<span class="dropdownSpanImg"><img src="../assets/downarrow.png" alt="dropdown"/></span></button>
                 <div class="dropdown-content">
                 <a href="#">Logout</a>
                 <!-- <a href="#">Logout option 2</a> -->
@@ -71,12 +71,53 @@ export default {
 };
 </script>
 <style>
+.dropdown {
+      position: relative;
+      display: inline-block;
+    }
 .dropdownSpanImg img{
     height: 15px;
     width: 15px;
     margin-left: 10px;
     vertical-align: middle;
 }
+.dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Additional button styling */
+    .dropdown-button {
+      background-color: transparent;
+      color: white;
+      /* padding: 12px; */
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .dropdown-button:hover {
+      background-color: transparent;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
 .navButtonPaddin{
     width: 40px;
     height: 22px;
