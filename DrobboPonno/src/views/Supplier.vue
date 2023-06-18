@@ -118,15 +118,21 @@
     <div class="mainBody">
         <div class="customMargin"></div>
         <div class="mainCardContainer">
-            <ShopCardSupplier :title="card1.title" :price="card1.price" :image="card1.imageLink" :remaining="card1.remaining" @remainingAdd="(number)=>{add1Supply(number)}" @response_add_cart="(msg)=>{
-                addItem1()
-            }"/>
-            <ShopCardSupplier :title="card2.title" :price="card2.price" :image="card2.imageLink" :remaining="card2.remaining" @remainingAdd="(number)=>{add2Supply(number)}" @response_add_cart="(msg)=>{
-                addItem2()
-            }" />
-            <ShopCardSupplier :title="card3.title" :price="card3.price" :image="card3.imageLink" :remaining="card3.remaining" @remainingAdd="(number)=>{add3Supply(number)}" @response_add_cart="(msg)=>{
-                addItem3()
-            }"/>
+            <ShopCardSupplier :title="card1.title" 
+                                :price="card1.price" 
+                                :image="card1.imageLink" 
+                                :remaining="card1.remaining" 
+                                @remainingAdd="(number)=>{add1Supply(number)}"/>
+            <ShopCardSupplier :title="card2.title" 
+                              :price="card2.price" 
+                              :image="card2.imageLink" 
+                              :remaining="card2.remaining" 
+                              @remainingAdd="(number)=>{add2Supply(number)}"/>
+            <ShopCardSupplier :title="card3.title" 
+                             :price="card3.price" 
+                             :image="card3.imageLink" 
+                             :remaining="card3.remaining" 
+                             @remainingAdd="(number)=>{add3Supply(number)}"/>
         </div>
     </div>
 </template>

@@ -9,10 +9,8 @@ import {ref} from 'vue'
 
 // Shop Card Component
 //console.log(props.image)
-const emit = defineEmits(["response_add_cart","remainingAdd"]);
-const addItem = ()=>{
-    emit('response_add_cart',true)
-}
+const emit = defineEmits(["remainingAdd"]);
+
 const decSupply = ()=>{
     let x = props.remaining
     x = x-1
@@ -76,27 +74,7 @@ const incSupply = ()=>{
     background: rgba(200, 197, 161, 0.782);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-.addCartButton:hover{
-    /* margin-top: 10px; */
-    background: black;
-}
-.addCartButton p{
-    color: white;
-}
-.addCartButton{
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    height: 40px;
-    width: 100%;
-    margin-top: 5px;
-    /* margin-left: 3%; */
-    /* margin-right: 3%; */
-    background: rgba(0, 0, 0, 0.856);
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-}
+
 .titleBox h4{
     font-weight: 500;
 }
