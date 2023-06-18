@@ -139,7 +139,7 @@ h1{
   height: 580px;
   width: 800px;
   border-radius: 10px;
-  background: rgb(205, 204, 212);
+  background: rgb(236, 236, 240);
   display: flex;
   flex-direction: column;
   align-items: center;

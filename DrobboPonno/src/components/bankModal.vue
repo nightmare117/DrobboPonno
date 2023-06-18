@@ -5,7 +5,7 @@ const props = defineProps({
 //   shopNumber:String
 });
 
-const hasAccount = ref(true)
+const hasAccount = ref(false)
 const bankAccountBalance = ref(1000000)
 const bankAccountId = ref(435354433533)
 
@@ -16,6 +16,13 @@ const addInfo = () => {
 };
 const addDebtFalse=()=>{
   emit("responseDebt", false);
+}
+
+const accountRemove = ()=>{
+  hasAccount.value=false
+  console.log(hasAccount.value)
+  
+  // here bank account should be removed from db 
 }
 console.log(props.shopFlag);
 </script>
@@ -36,7 +43,7 @@ console.log(props.shopFlag);
           <div class="bankId">
             <p>Remaining Balance: {{ bankAccountBalance }} BDT</p>
           </div>
-          <div class="removeAccount">
+          <div @click="accountRemove" class="removeAccount">
             <p>Remove Account</p>
           </div>
         </div>
@@ -49,11 +56,11 @@ console.log(props.shopFlag);
       <!-- <div class="debtModalSpan1"></div> -->
       <div class="inputBox1Debt">
         <label for="inp" class="inp">Account ID</label>
-        <input v-model="debtorData.name" type="number" id="inp" placeholder="" />
+        <input  type="number" id="inp" placeholder="" />
       </div>
       <div class="inputBox1Debt">
         <label for="inp" class="inp">PIN</label>
-        <input v-model="debtorData.amount" name="pincode" type="text" class="pincode" inputmode="numeric" maxlength="4" />
+        <input  name="pincode" type="text" class="pincode" inputmode="numeric" maxlength="4" />
       </div>
       <div class="AddShopModalContainer">
         <button @click="addInfo" class="DebtModalButton">Done</button>

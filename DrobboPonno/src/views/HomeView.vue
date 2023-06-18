@@ -86,9 +86,9 @@ const startButtonClicked = () => {
 }
 .home1 h1{
   font-size: 60px;
-  margin-top: 450px; 
-  margin-left: 70px;
-  margin-bottom: 20px;
+  margin-top: 450px !important; 
+  margin-left: 70px !important;
+  margin-bottom: 20px !important;
   color: rgb(255, 255, 255);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

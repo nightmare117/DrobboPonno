@@ -25,7 +25,7 @@ import { ref } from 'vue'
     width: 100%;
 }
 .notificationComponent{
-    margin: 10px;
+    margin-top: 10px;
     width: 600px;
     padding: 20px;
     border-radius: 5px;
