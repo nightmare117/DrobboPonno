@@ -70,7 +70,6 @@
     }
 
     const saveChangesSupplier = ()=>{
-
         // save changes button functionality
 
       saveStockChanges()
@@ -80,14 +79,20 @@
             toast.success('Your changes have been applied.')
         },1500)
 
-
-
     }
     const getItemCounts= ()=>{
       authService.getItemsCount((data)=>{
         card1.value.remaining = data.filter(v=>v.id==1)[0].stock_count;
         card2.value.remaining = data.filter(v=>v.id==2)[0].stock_count;
         card3.value.remaining = data.filter(v=>v.id==3)[0].stock_count;
+      },()=>{
+
+      })
+    }
+    const getPendingRequests = ()=>{
+      authService.getPendingRequests((data)=>{
+        console.log("Hello World")
+        console.log(data);
       },()=>{
 
       })
@@ -118,6 +123,7 @@
     }
     onMounted(() => {
       getItemCounts();
+      // setInterval(getPendingRequests,5000)
     });
 </script>
 

@@ -127,7 +127,7 @@ const card1 = ref({
         total: subTotal.value,
       }
       authService.purchaseProduct(()=>{
-        toast.success("Items Purchased Successfully")
+        toast.success("Items Requested Successfully")
       },(err)=>{
         console.log(err)
       },data)

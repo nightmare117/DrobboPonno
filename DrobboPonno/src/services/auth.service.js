@@ -63,9 +63,33 @@ const authService = {
             })
             .catch((errorResponse) => error(errorResponse));
     },
+    approveAProduct(success, error, data) {
+        axios
+            .post('/approve-product',data)
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
     getItemsCount(success, error, params) {
         axios
             .get('/get-items-count')
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
+    getProductOrderUpdates(success, error, params) {
+        axios
+            .get('/get-pending-items')
+            .then((responseData) => {
+                success(responseData.data);
+            })
+            .catch((errorResponse) => error(errorResponse));
+    },
+    getPendingRequests(success, error, params) {
+        axios
+            .get('/get-pending-requests')
             .then((responseData) => {
                 success(responseData.data);
             })

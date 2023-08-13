@@ -152,13 +152,22 @@ export default {
   mounted() {
     apiService.setToken(localStorageService.getToken());
     this.getUserInfo();
+    // setInterval(this.getProductOrderUpdates,5000)
   },
   methods: {
     getUserInfo(){
       apiService.setToken(localStorageService.getToken());
       this.userInfo.userId = localStorageService.getUserInfo().id;
       if(localStorageService.getUserInfo().type == 2)router.push("/supplier");
-    }
+    },
+    getProductOrderUpdates(){
+      authService.getProductOrderUpdates((data)=>{
+        console.log("Hello World")
+        console.log(data);
+      },()=>{
+
+      })
+    },
   }
 };
 </script>

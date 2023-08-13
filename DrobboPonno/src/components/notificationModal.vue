@@ -16,7 +16,7 @@ const addDebt = () => {
 const addNotificationFalse=()=>{
   emit("responsenotificationmodal", false);
 }
-console.log(props.shopFlag);
+// console.log(props.shopFlag);
 </script>
 
 <template>
@@ -31,27 +31,83 @@ console.log(props.shopFlag);
         </div>
         <div v-else>
             <div style="margin-top: 30px;"></div>
-            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"
-            :pstatus="true"/>
-            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"
-            :pstatus="true"/>
-            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"
-            :pstatus="true"/>
-            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"
-            :pstatus="true"/>
-            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"
-            :pstatus="true"/>
-            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"
-            :pstatus="true"/>
+          <template v-for="notification in notificationList">
+            <notificationComponent :product1quantity="'2'" :product2quantity="'1'" :product3quantity="'1'"
+                                   :pstatus="true" :order-status="notification.status" :id="notification.id"
+            />
+          </template>
+<!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
+<!--            :pstatus="true"/>-->
+<!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
+<!--            :pstatus="true"/>-->
+<!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
+<!--            :pstatus="true"/>-->
+<!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
+<!--            :pstatus="true"/>-->
+<!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
+<!--            :pstatus="true"/>-->
+<!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
+<!--            :pstatus="true"/>-->
         </div>
       </div>
       <!-- <div class="notificationModalSpan"></div> -->
       <!-- <div class="debtModalSpan1"></div> -->
-      
+
     <!-- <button @click="wowClicked"></button> -->
   </div>
   </div>
 </template>
+<script>
+import localStorageService from "../services/localStorageService";
+import authService from "../services/auth.service";
+import router from "../router";
+import apiService from "../services/api.service";
+export default {
+  name: "notificationModal",
+  data() {
+    return {
+      notificationList : [],
+    };
+  },
+  mounted() {
+    // apiService.setToken(localStorageService.getToken());
+    this.getUserInfo();
+    setInterval(this.getProductOrderUpdates,5000)
+    setInterval(this.getPendingRequests,5000)
+  },
+  methods: {
+    getPendingRequests(){
+      authService.getPendingRequests((data)=>{
+        if(localStorageService.getUserInfo().type == 2){
+          console.log(data)
+          this.notificationList = data;
+        }
+        console.log("Hello World")
+        console.log(data);
+      },()=>{
+
+      })
+    },
+    getUserInfo(){
+      apiService.setToken(localStorageService.getToken());
+      //this.userInfo.userId = localStorageService.getUserInfo().id;
+      // if(localStorageService.getUserInfo().type == 2)router.push("/supplier");
+    },
+    getProductOrderUpdates(){
+      authService.getProductOrderUpdates((data)=>{
+        if(localStorageService.getUserInfo().type == 1){
+          console.log(data)
+          this.notificationList = data;
+        }
+        console.log("Hello World")
+        console.log(data);
+      },()=>{
+
+      })
+    },
+  }
+};
+</script>
 <style>
 .noNotificationP{
     /* width: 250px; */
