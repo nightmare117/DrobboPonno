@@ -12,6 +12,7 @@ ApiService.init();
 
 const app = createApp(App)
 const options = {
+    position: 'bottom-right'
     // You can set your default options here
 };
 app.use(Toast, options);

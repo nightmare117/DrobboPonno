@@ -32,8 +32,8 @@ const addNotificationFalse=()=>{
         <div v-else>
             <div style="margin-top: 30px;"></div>
           <template v-for="notification in notificationList">
-            <notificationComponent :product1quantity="'2'" :product2quantity="'1'" :product3quantity="'1'"
-                                   :pstatus="true" :order-status="notification.status" :id="notification.id"
+            <notificationComponent :id="notification.id" :cid="notification.customer_id" :pid="notification.product_id"
+                            :quantity="notification.product_quantity" :status="notification.status" :sid="notification.supplier_id"
             />
           </template>
 <!--            <notificationComponent :product1quantity="2" :product2quantity="1" :product3quantity="1"-->
@@ -72,8 +72,8 @@ export default {
   mounted() {
     // apiService.setToken(localStorageService.getToken());
     this.getUserInfo();
-    setInterval(this.getProductOrderUpdates,5000)
-    setInterval(this.getPendingRequests,5000)
+    setInterval(this.getProductOrderUpdates,2000)
+    setInterval(this.getPendingRequests,2000)
   },
   methods: {
     getPendingRequests(){
@@ -82,8 +82,8 @@ export default {
           console.log(data)
           this.notificationList = data;
         }
-        console.log("Hello World")
-        console.log(data);
+        // console.log("Hello World")
+        // console.log(data);
       },()=>{
 
       })
@@ -98,9 +98,10 @@ export default {
         if(localStorageService.getUserInfo().type == 1){
           console.log(data)
           this.notificationList = data;
+          this.notificationList.reverse();
         }
-        console.log("Hello World")
-        console.log(data);
+        // console.log("Hello World")
+        // console.log(data);
       },()=>{
 
       })
