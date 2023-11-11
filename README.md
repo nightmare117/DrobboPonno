@@ -35,7 +35,7 @@ Drobboponno is a cutting-edge e-commerce platform that redefines online shopping
 - Install the libraries by running - npm install
 - Now, to run the application - npm run dev
 
-## How to set up DrobboPonno Bbackend:
+## How to set up DrobboPonno backend:
 - Make sure to install Node
 - Clone the [repository](https://github.com/2018331043/ECommerceBackend.git) in your directory.
 - Install the libraries by running - npm install
